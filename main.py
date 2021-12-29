@@ -20,6 +20,7 @@ best_xgboost_model = xgb.XGBRegressor()
 best_xgboost_model.load_model("best_model.json")
 
 if st.checkbox('Show dataframe'):
+    data = pd.read_csv("https://raw.githubusercontent.com/gurokeretcha/WishWeightPredictionApplication/master/Fish.csv")
     data
 
 st.subheader("Please select relevant features of your fish!")
