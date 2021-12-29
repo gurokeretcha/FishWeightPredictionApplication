@@ -15,7 +15,7 @@ encoder.classes_ = np.load('classes.npy',allow_pickle=True)
 best_xgboost_model = xgb.XGBRegressor()
 best_xgboost_model.load_model("best_model.json")
 
-if st.checkbox('Show dataframe'):
+if st.checkbox('Show Training dataframe'):
     data
 
 st.subheader("Please select relevant features of your fish!")
@@ -39,7 +39,7 @@ if st.button('Make Prediction'):
         [int(input_species), input_Length1, input_Length2, input_Length3, input_Height, input_Width], 0)
     prediction = best_xgboost_model.predict(inputs)
     print("final pred", np.squeeze(prediction, -1))
-    st.write(f"Your fish weight is: {np.squeeze(prediction, -1)} Gram")
+    st.write(f"Your fish weight is: {np.squeeze(prediction, -1)}g")
 
     st.write(f"Thank you {st.session_state.name}! I hope you liked it.")
     st.write(f"If you want to see more advanced applications you can follow me on [medium](https://medium.com/@gkeretchashvili)")
