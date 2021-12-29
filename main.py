@@ -15,7 +15,7 @@ encoder.classes_ = np.load('classes.npy',allow_pickle=True)
 best_xgboost_model = xgb.XGBRegressor()
 best_xgboost_model.load_model("best_model.json")
 
-if st.checkbox('Show Training dataframe'):
+if st.checkbox('Show Training Dataframe'):
     data
 
 st.subheader("Please select relevant features of your fish!")
