@@ -6,21 +6,16 @@ import xgboost as xgb
 import numpy as np
 st.header("Fish Weight Prediction App")
 st.text_input("Enter your Name: ", key="name")
-
 data = pd.read_csv("fish.csv")
-data_cleaned = data.drop("Weight", axis=1)
-y = data['Weight']
-x_train, x_test, y_train, y_test = train_test_split(data_cleaned, y, test_size=0.2, random_state=42)
-label_encoder = LabelEncoder()
-x_train['Species'] = label_encoder.fit_transform(x_train['Species'].values)
-x_test['Species'] = label_encoder.transform(x_test['Species'].values)
+#load label encoder
+encoder = LabelEncoder()
+encoder.classes_ = np.load('classes.npy',allow_pickle=True)
 
 # load model
 best_xgboost_model = xgb.XGBRegressor()
 best_xgboost_model.load_model("best_model.json")
 
 if st.checkbox('Show dataframe'):
-    data = pd.read_csv("fish.csv")
     data
 
 st.subheader("Please select relevant features of your fish!")
@@ -39,7 +34,7 @@ input_Width = st.slider('Diagonal width(cm)', 0.0, max(data["Width"]), 1.0)
 
 
 if st.button('Make Prediction'):
-    input_species = label_encoder.transform(np.expand_dims(inp_species, -1))
+    input_species = encoder.transform(np.expand_dims(inp_species, -1))
     inputs = np.expand_dims(
         [int(input_species), input_Length1, input_Length2, input_Length3, input_Height, input_Width], 0)
     prediction = best_xgboost_model.predict(inputs)
