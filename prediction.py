@@ -19,6 +19,8 @@ x_train, x_test, y_train, y_test = train_test_split(data_cleaned, y, test_size=0
 label_encoder = LabelEncoder()
 x_train['Species'] = label_encoder.fit_transform(x_train['Species'].values)
 x_test['Species'] = label_encoder.transform(x_test['Species'].values)
+#save label encoder classes
+np.save('classes.npy', label_encoder.classes_)
 
 # load model
 best_xgboost_model = xgb.XGBRegressor()
@@ -27,8 +29,10 @@ pred = best_xgboost_model.predict(x_test)
 score_MSE, score_MAE, score_r2score = evauation_model(pred, y_test)
 print(score_MSE, score_MAE, score_r2score)
 #%%
+loaded_encoder = LabelEncoder()
+loaded_encoder.classes_ = np.load('classes.npy',allow_pickle=True)
 print(x_test.shape)
-input_species = label_encoder.transform(np.expand_dims("Parkki",-1))
+input_species = loaded_encoder.transform(np.expand_dims("Parkki",-1))
 print(int(input_species))
 inputs = np.expand_dims([int(input_species),15,20,10,4,5],0)
 print(inputs.shape)
