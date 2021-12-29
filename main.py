@@ -7,7 +7,7 @@ import numpy as np
 st.header("Fish Weight Prediction App")
 st.text_input("Enter your Name: ", key="name")
 
-data = pd.read_csv("fish.csv")
+data = pd.read_csv("https://raw.githubusercontent.com/gurokeretcha/WishWeightPredictionApplication/master/Fish.csv")
 data_cleaned = data.drop("Weight", axis=1)
 y = data['Weight']
 x_train, x_test, y_train, y_test = train_test_split(data_cleaned, y, test_size=0.2, random_state=42)
