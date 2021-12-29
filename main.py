@@ -6,7 +6,7 @@ import xgboost as xgb
 import numpy as np
 st.header("Fish Weight Prediction App")
 st.text_input("Enter your Name: ", key="name")
-data = pd.read_csv("fish.csv")
+data = pd.read_csv("https://raw.githubusercontent.com/gurokeretcha/WishWeightPredictionApplication/master/Fish.csv")
 #load label encoder
 encoder = LabelEncoder()
 encoder.classes_ = np.load('classes.npy',allow_pickle=True)
